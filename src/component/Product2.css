@@ -1,0 +1,83 @@
+.product-card {
+    max-width: 400px;
+    margin: 0 auto;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 16px;
+    text-align: right;
+    direction: rtl;
+    font-family: Arial, sans-serif;
+  }
+  
+  .product-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 12px;
+  }
+  
+  .product-image-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 16px;
+  }
+  
+  .product-image {
+    width: 200px;
+    height: 200px;
+    object-fit: contain;
+    display: block;
+  }
+  
+  .product-price {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 12px;
+  }
+  
+  .product-price .amount {
+    color: black;
+    font-weight: bold;
+  }
+  
+  .section-title {
+    font-weight: bold;
+    color: #111;
+    margin-bottom: 6px;
+  }
+  
+  .section-text {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 12px;
+  }
+  
+  .divider {
+    border: none;
+    border-top: 2px solid #facc15;
+    margin: 16px 0;
+  }
+  
+  .info-title {
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .info-table {
+    width: 100%;
+    font-size: 14px;
+    border: 2px solid #facc15;
+    border-collapse: collapse;
+  }
+  
+  .info-table td {
+    border: 1px solid #facc15;
+    padding: 10px;
+    text-align: center;
+  }
+  
+  .info-table td:first-child {
+    text-align: right;
+  }

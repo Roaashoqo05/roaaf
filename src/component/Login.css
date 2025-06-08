@@ -1,0 +1,92 @@
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  direction: rtl;
+}
+
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #ffffff;
+}
+
+.login-box {
+  width: 100%;
+  max-width: 400px;
+  padding: 2rem;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
+}
+
+.logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;       /* تأكد أن العنصر يمتد بعرض الصفحة */
+  text-align: center;
+  margin: 2rem auto; /* auto للتمركز الأفقي */
+  direction: ltr;    /* تجاوز اتجاه الصفحة إذا كانت RTL */
+}
+
+.logo-image {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.input-group {
+  display: flex;
+  align-items: center;
+  border: 2px solid #ddd;
+  border-radius: 999px;
+  padding: 0.5rem 1rem;
+  background-color: #fff;
+}
+
+.input-group .icon {
+  margin-left: 0.5rem;
+  font-size: 1.2rem;
+  color: #666;
+}
+
+.input-group input {
+  border: none;
+  outline: none;
+  flex: 1;
+  text-align: right;
+  font-size: 1rem;
+  color: #333;
+}
+
+.login-button {
+ background-color: #ffff00;
+  color: #000;
+  font-weight: bold;
+  padding: 1rem;
+  border: none;
+  border-radius: 999px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+   /*margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #222;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+*/
+}
+
+.login-button:hover {
+  background-color: #eab308;
+}
+
+

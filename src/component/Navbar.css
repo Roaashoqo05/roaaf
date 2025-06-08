@@ -1,0 +1,71 @@
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: white;
+  padding: 10px 20px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.navbar-right,
+.icons {
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+
+.navbar-center {
+  flex: 2;
+  display: flex;
+  justify-content: center;
+}
+
+.search-input {
+  width: 60%;
+  padding: 8px 16px;
+  border-radius: 20px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  text-align: right;
+}
+
+.logo-image {
+  height: 40px;
+  margin-right: 10px;
+}
+
+.home-icon {
+  cursor: pointer;
+  font-size: 24px;
+}
+
+.icon-btn {
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.tooltip-container {
+  position: relative;
+}
+
+.tooltip {
+  position: absolute;
+  bottom: -20px;
+  background-color: #444;
+  color: white;
+  font-size: 12px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  visibility: hidden;
+}
+
+.tooltip-container:hover .tooltip {
+  visibility: visible;
+}

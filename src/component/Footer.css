@@ -1,0 +1,48 @@
+.footer {
+ 
+  background-color: #222;
+  color: #fff;
+  padding: 20px 0;
+  text-align: center;
+  
+}
+
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.footer p {
+  margin: 5px 0;
+}
+
+.footer-links {
+  margin-top: 10px;
+}
+
+.footer-links a {
+  color: #ffff00;
+  margin: 0 10px;
+  text-decoration: none;
+}
+
+.footer-links a:hover {
+  text-decoration: underline;
+}
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* الحاوية الرئيسية لكل الصفحة */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* خلي الحاوية تغطي الشاشة */
+}
+
+/* المحتوى الرئيسي (اللي بين الهيدر والفوتر) */
+.content {
+  flex: 1;
+}

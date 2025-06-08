@@ -1,0 +1,89 @@
+.invoice-container {
+    direction: rtl;
+    padding: 30px;
+    max-width: 800px;
+    margin: auto;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+  }
+  
+  .invoice-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  .invoice-table th,
+  .invoice-table td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: center;
+  }
+  
+  .total {
+    margin-top: 20px;
+    color: rgb(0, 3, 0);
+  }
+  
+  .back-btn {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #222;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+
+ /* @media print {
+    body * {
+      visibility: hidden;
+    }
+  
+    .invoice-container, .invoice-container * {
+      visibility: visible;
+    }
+  
+    .invoice-container {
+      position: absolute;
+      top: 0;
+      right: 0;
+      left: 0;
+    }
+  
+    .print-btn {
+  display: inline-block;
+  margin: 30px auto;
+  padding: 10px 20px;
+  background-color: #ffee25;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  text-align: center;
+  display: block; /* مهم لتفعيل margin auto 
+  }}*/
+  
+
+.print-btn {
+  padding: 10px 20px;
+  background-color: #ffee25;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  text-align: center;
+   display: flex;
+ 
+}
+
+  .invoice-header {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .company-logo {
+    max-width: 150px;
+    height: auto;
+  }

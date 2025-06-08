@@ -1,0 +1,71 @@
+.signup-background {
+  background-color: #ffffff; /* خلفية بيضاء */
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* الصندوق */
+.signup-box {
+  background-color: rgba(0, 0, 0, 0.85);
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(255, 255, 0, 4);
+  width: 100%;
+  max-width: 400px;
+  color: white;
+}
+
+/* العنوان */
+.signup-box h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #ffcc00;
+}
+
+/* النموذج */
+.signup-form input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  border: none;
+  border-radius: 8px;
+  background-color: #222;
+  color: white;
+  font-size: 16px;
+}
+
+/* زر التسجيل */
+.signup-form button {
+  width: 100%;
+  padding: 12px;
+  background-color: #ffcc00;
+  border: none;
+  border-radius: 8px;
+  color: black;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.signup-form button:hover {
+  background-color: #e6b800;
+}
+
+/* رابط تسجيل الدخول */
+.login-link {
+  text-align: center;
+  margin-top: 15px;
+  font-size: 14px;
+}
+
+.login-link a {
+  color: #ffcc00;
+  text-decoration: none;
+}
+
+.login-link a:hover {
+  text-decoration: underline;
+}

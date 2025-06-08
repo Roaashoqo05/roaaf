@@ -1,0 +1,196 @@
+.cart-container {
+    max-width: 800px;
+    margin: auto;
+    padding: 20px;
+  
+   min-height: calc(100vh - 120px); /* لضمان امتداد الصفحة (عدّل الرقم حسب ارتفاع الـ Navbar و Footer) */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;}
+   /* background-color: #fff;
+    border: 3px solid #ffff00;
+    border-radius: 16px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    direction: rtl;
+    text-align: right;
+  }*/
+  
+  .cart-title {
+    color: #000;
+    background-color: #ffee25;
+    padding: 15px;
+    border-radius: 12px;
+    text-align: center;
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  .empty-message {
+    font-size: 20px;
+    text-align: center;
+    color: #777;
+   
+  }
+  
+  .cart-items {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding-bottom: 30px; /* لإعطاء مسافة من السهم السفلي */
+}
+
+.cart-item {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  background-color: #fefefe;
+  padding: 15px;
+  border: 2px dashed #ffee25;
+  border-radius: 12px;
+  position: relative;
+  gap: 15px;
+}
+  .item-image {
+    width: 100px;
+    margin-left: 15px;
+  }
+  .item-details {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.trash-icon {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: red;
+}
+
+.trash-icon:hover {
+  transform: scale(1.2);
+}
+  
+  .item-details h3 {
+    margin: 0;
+    font-size: 20px;
+  }
+  
+  .item-details p {
+    margin: 4px 0;
+  }
+  
+  .cart-summary {
+    margin-top: 30px;
+    text-align: center;
+    background-color: #ffee25;
+    padding: 15px;
+    border-radius: 12px;
+  }
+  
+  .checkout-btn {
+    margin-top: 10px;
+    background-color: black;
+    color: #ffee25;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 18px;
+  }
+  
+  .checkout-btn:hover {
+    background-color: #333;
+  }
+  .back-icon {
+  font-size: 30px;
+  cursor: pointer;
+  margin: 10px;
+  display: inline-block;
+  transition: transform 0.2s;
+   border-radius: 10px;
+   margin-bottom: 20px;
+  
+}
+
+.back-icon:hover {
+  transform: scale(1.2);
+  color: #555;
+}
+  /* .back-btn {
+    background-color: #ffee25;
+    color: black;
+    border: 2px solid black;
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-size: 16px;
+    margin-bottom: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  */
+ 
+
+  .quantity-control {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 10px 0;
+  }
+  
+  .quantity-control button {
+    padding: 5px 10px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    background-color: #ffee25;
+    border: none;
+    border-radius: 5px;
+  }
+  
+  .quantity-control span {
+    min-width: 30px;
+    text-align: center;
+    font-size: 16px;
+  }
+
+  .cart-item {
+  position: relative;
+  display: flex;
+  background: #fff;
+  border: 2px solid #ddd;
+  border-radius: 10px;
+  padding: 10px;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+.back-btn {
+  background-color: #ffee25;
+  color: black;
+  border: 2px solid black;
+  padding: 4px 8px;  /* تصغير البادينغ أكثر */
+  border-radius: 8px;
+  font-size: 14px;   /* تقليل حجم الخط */
+  width: 40px;       /* ضبط عرض ثابت */
+  height: 35px;      /* ضبط ارتفاع ثابت */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.back-btn:hover {
+  background-color: #fff176;
+}
+
+
+  
+  
+  
