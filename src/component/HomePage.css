@@ -4,11 +4,26 @@
 .main-container {
   font-family: 'Arial', sans-serif;
   direction: rtl;
-  background-color: #fff;
+  /*background-color: #fff;*/
   padding: 20px 60px;
   margin: 0 auto;
   width: 100%;
   max-width: 1000px; /* يناسب شاشات اللابتوب */
+}
+
+body {
+  background-image: url('https://partsouq.com/images/background.jpg');
+  background-size: cover;       /* لتغطية الشاشة كاملة */
+  background-repeat: no-repeat; /* عدم التكرار */
+  background-attachment: fixed; /* تبقى الصورة ثابتة عند التمرير */
+  background-position: center;  /* توسيط الخلفية */
+}
+body::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(255, 255, 255, 0.10); /* خلفية بيضاء شفافة */
+  z-index: -1;
 }
 
 /* Header */
@@ -83,20 +98,7 @@
 .product-card:hover {
   transform: translateY(-5px);
 }
-/*.product-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 20px;
-  padding: 20px;
-}
-.product-card {
-  background: white;
-  border-radius: 12px;
-  border: 2px solid #ffd700;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-  padding: 10px;
-  text-align: center;
-}*/
+
 
 .product-img {
   width: 100px;
@@ -168,33 +170,26 @@
 }
 
 
-/*.banner {
+.banner {
   text-align: center;
   margin-bottom: 20px;
 }
 
 .banner img {
   max-width: 100%;
-  width: 500px;
- 
-  border-radius: 5px;
-}*/
-.image-slider {
-  width: 90vh;
-  
-  overflow: hidden;
-  border-radius: 0; /* لا حاجة للزوايا المستديرة في صورة بعرض الشاشة */
-  margin: 0;
-  box-shadow: none; /* يمكن إزالة الظل إن لم يكن مناسباً للتصميم الكامل */
-  position: relative;
-  top: 0;
-  left: 0;
-  z-index: 1;
+  width: 90%;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.slider-image {
-  width: 100%;
-  height: 100;
-  object-fit: cover;
-  transition: opacity 1s ease-in-out;
+  
+
+.prodact{
+  /*font-family: "Tajawal";*/
+  font-family: 'Cairo';
+    font-size: 50px;
+    font-weight: 400;
+    color:#ffa600;
+     text-align: center;
+ 
 }
