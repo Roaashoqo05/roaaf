@@ -19,14 +19,6 @@ const apiStore = {
             setMessage(error.message || "Login failed");
         }
     },
-     async signup(user, setMessage) {
-        try {
-            const result = await apiDispatcher.dispatch({ type: "SIGNUP", payload: user });
-            setMessage(result.message || "signup success");
-        } catch (error) {
-            setMessage(error.message || "signup failed");
-        }
-    },
      async invoices(user, setMessage) {
         try {
             const result = await apiDispatcher.dispatch({ type: "INVOICES", payload: user });
@@ -38,3 +30,4 @@ const apiStore = {
 };
 
 export default apiStore;
+

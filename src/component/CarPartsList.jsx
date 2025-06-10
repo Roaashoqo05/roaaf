@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import { getAllCarParts } from './api';
 
 function CarPartsList() {
   const [carParts, setCarParts] = useState([]);
@@ -8,14 +8,18 @@ function CarPartsList() {
   const defaultImage = 'http://localhost:8000/storage/images/default.jpg';
 
   useEffect(() => {
-    axios.get('http://localhost:8000/api/car-parts')
-      .then(response => {
-        setCarParts(response.data);
-      })
-      .catch(error => {
+    const fetchCarParts = async () => {
+      try {
+        const data = await getAllCarParts();
+        console.log('قطع الغيار:', data);
+        setCarParts(data);
+      } catch (error) {
+        console.error('خطأ في جلب البيانات:', error);
         setError('حدث خطأ في جلب البيانات');
-        console.error(error);
-      });
+      }
+    };
+
+    fetchCarParts();
   }, []);
 
   if (error) return <div>{error}</div>;
@@ -35,7 +39,6 @@ function CarPartsList() {
           >
             <h3>{part.name}</h3>
 
-            {/* عرض الصورة مع fallback في حالة الخطأ */}
             <img
               src={part.image_url || defaultImage}
               alt={part.name}

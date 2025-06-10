@@ -1,52 +1,64 @@
-import React from "react";
-import "./Login.css";
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 
-const LoginPage = () => {
-  const navigate = useNavigate();
+function CarPartsList() {
+  const [carParts, setCarParts] = useState([]);
+  const [error, setError] = useState(null);
 
-  const handleLogin = (e) => {
-    e.preventDefault();
-    // هنا ممكن تضيف تحقق بيانات الدخول
-    navigate('/'); // يرجع المستخدم للصفحة الرئيسية بعد تسجيل الدخول
-  };
+  const defaultImage = 'http://localhost:8000/storage/images/default.jpg';
+
+  useEffect(() => {
+    axios.get('http://localhost:8000/api/car-parts')
+      .then(response => {
+        setCarParts(response.data);
+      })
+      .catch(error => {
+        setError('حدث خطأ في جلب البيانات');
+        console.error(error);
+      });
+  }, []);
+
+  if (error) return <div>{error}</div>;
 
   return (
-    <div className="login-container">
-      <div className="login-box">
-        {/* Logo */}
-        <div className="logo">
-          <img src="/images/sclogo.png" className="logo-image" alt="Logo" />
-        </div>
+    <div>
+      <h2>قطع السيارات</h2>
+      <ul style={{ listStyle: 'none', padding: 0 }}>
+        {carParts.map(part => (
+          <li
+            key={part._id || part.id}
+            style={{
+              marginBottom: '20px',
+              borderBottom: '1px solid #ccc',
+              paddingBottom: '10px'
+            }}
+          >
+            <h3>{part.name}</h3>
 
-        {/* Form */}
-        <form className="login-form" onSubmit={handleLogin}>
-          {/* Username */}
-          <div className="input-group">
-            <span className="icon">👤</span>
-            <input type="text" placeholder="اسم المستخدم" required />
-          </div>
+            {/* عرض الصورة مع fallback في حالة الخطأ */}
+            <img
+              src={part.image_url || defaultImage}
+              alt={part.name}
+              style={{
+                maxWidth: '200px',
+                height: 'auto',
+                display: 'block',
+                marginBottom: '10px'
+              }}
+              onError={(e) => {
+                e.target.onerror = null;
+                e.target.src = defaultImage;
+              }}
+            />
 
-          {/* Phone */}
-          <div className="input-group">
-            <span className="icon">📱</span>
-            <input type="number" placeholder="رقم الهاتف" required />
-          </div>
-
-          {/* Password */}
-          <div className="input-group">
-            <span className="icon">🔒</span>
-            <input type="password" placeholder="كلمة السر" required />
-          </div>
-
-          {/* Button */}
-          <button type="submit" className="login-button">
-            تسجيل الدخول
-          </button>
-        </form>
-      </div>
+            <p>السعر: {part.price} شيكل</p>
+            {part.description && <p>الوصف: {part.description}</p>}
+          </li>
+        ))}
+      </ul>
     </div>
   );
-};
+}
 
-export default LoginPage;
+export default CarPartsList;
+
