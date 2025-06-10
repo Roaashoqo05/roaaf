@@ -1,4 +1,3 @@
-
 const apiAction = {
     register(user) {
         return fetch("http://localhost:8000/api/register", {
@@ -30,21 +29,7 @@ const apiAction = {
             return data;
         });
     },
-     signup(user) { 
-        return fetch("http://localhost:8000/api/signup", {
-            method: "POST",
-            headers: { 
-                "Content-Type": "application/json",
-                "Accept": "application/json"
-            },
-            body: JSON.stringify(user)
-        })
-        .then(async response => {
-            const data = await response.json();
-            if (!response.ok) throw new Error(data.message || "signup failed");
-            return data;
-        });
-    },
+     
      invoices(user) { 
         return fetch("http://localhost:8000/api/invoices", {
             method: "POST",
@@ -63,4 +48,3 @@ const apiAction = {
 }
 
 export default apiAction;
-
