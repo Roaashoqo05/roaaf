@@ -5,20 +5,48 @@ import { useNavigate } from 'react-router-dom';
 const Cart = ({ cartItems, onRemoveFromCart }) => {
   const navigate = useNavigate();
 
-  const updateQuantity = (id, delta) => {
-    const updated = cartItems.map((item) =>
-      item.id === id
-        ? { ...item, quantity: Math.max(1, item.quantity + delta) }
-        : item
-    );
-    // هذا التعديل يتطلب تمرير دالة setCartItems من App أو إدارة عبر context
-    console.warn('تعديل الكمية غير مفعل إلا إذا تم تمرير setCartItems');
-  };
-const totalPrice = cartItems.reduce(
-  (acc, item) => acc + (Number(item.price) * item.quantity),
-  0
-);
+  const totalPrice = cartItems.reduce(
+    (acc, item) => acc + (Number(item.price) * item.quantity),
+    0
+  );
 
+  const handleCheckout = async () => {
+    try {
+      const invoiceData = {
+        customer: {
+          name: 'العميل الكريم',
+          phone: '000000000',
+        },
+        items: cartItems.map(item => ({
+          part_id: item.id,
+          quantity: item.quantity
+        })),
+        tax: 0,
+        discount: 0
+      };
+
+      const response = await fetch('http://127.0.0.1:8000/api/invoices', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        },
+        body: JSON.stringify(invoiceData)
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        alert('تم إنشاء الفاتورة بنجاح!');
+        navigate(`/invoices/${data.invoice_id}`);
+      } else {
+        alert('فشل في إنشاء الفاتورة: ' + (data.message || ''));
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      alert('حدث خطأ أثناء إنشاء الفاتورة');
+    }
+  };
 
   return (
     <div className="cart-container">
@@ -46,18 +74,7 @@ const totalPrice = cartItems.reduce(
 
           <div className="cart-summary">
             <h2>السعر الكلي: {totalPrice} شيكل</h2>
-            <button
-              className="checkout-btn"
-              onClick={() => {
-                navigate('/Part', {
-                  state: {
-                    cartItems,
-                    totalPrice,
-                    customerName: 'العميل الكريم',
-                  },
-                });
-              }}
-            >
+            <button className="checkout-btn" onClick={handleCheckout}>
               إتمام الشراء
             </button>
           </div>
