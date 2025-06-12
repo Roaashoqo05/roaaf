@@ -39,20 +39,27 @@ function CarPartsList() {
           >
             <h3>{part.name}</h3>
 
-            <img
-              src={part.image_url || defaultImage}
-              alt={part.name}
-              style={{
-                maxWidth: '200px',
-                height: 'auto',
-                display: 'block',
-                marginBottom: '10px'
-              }}
-              onError={(e) => {
-                e.target.onerror = null;
-                e.target.src = defaultImage;
-              }}
-            />
+            {/* عرض كل الصور */}
+            {part.image_urls && part.image_urls.length > 0 ? (
+              part.image_urls.map((url, index) => (
+                <img
+                  key={index}
+                  src={url}
+                  alt={`${part.name} صورة ${index + 1}`}
+                  style={{ maxWidth: '200px', height: 'auto', marginRight: '10px' }}
+                  onError={(e) => {
+                    e.target.onerror = null;
+                    e.target.src = defaultImage;
+                  }}
+                />
+              ))
+            ) : (
+              <img
+                src={defaultImage}
+                alt="صورة افتراضية"
+                style={{ maxWidth: '200px', height: 'auto' }}
+              />
+            )}
 
             <p>السعر: {part.price} شيكل</p>
             {part.description && <p>الوصف: {part.description}</p>}
