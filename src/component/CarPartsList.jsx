@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { getAllCarParts } from './api';
+import { getAllCarParts } from './api';  // دالة جاهزة تستدعي API /car-parts
 
 function CarPartsList() {
   const [carParts, setCarParts] = useState([]);
@@ -10,8 +10,7 @@ function CarPartsList() {
   useEffect(() => {
     const fetchCarParts = async () => {
       try {
-        const data = await getAllCarParts();
-        console.log('قطع الغيار:', data);
+        const data = await getAllCarParts();  // هنا ينادي API /car-parts
         setCarParts(data);
       } catch (error) {
         console.error('خطأ في جلب البيانات:', error);
@@ -39,7 +38,7 @@ function CarPartsList() {
           >
             <h3>{part.name}</h3>
 
-            {/* عرض كل الصور */}
+            {/* عرض الصور */}
             {part.image_urls && part.image_urls.length > 0 ? (
               part.image_urls.map((url, index) => (
                 <img

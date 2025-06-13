@@ -1,64 +1,97 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React, { useState } from "react";
+import "./Login.css";
+import { useNavigate } from "react-router-dom";
+import { FaUser, FaLock } from "react-icons/fa";
+import { MdEmail } from "react-icons/md";
 
-function CarPartsList() {
-  const [carParts, setCarParts] = useState([]);
-  const [error, setError] = useState(null);
+export default function Login() {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
-  const defaultImage = 'http://localhost:8000/storage/images/default.jpg';
+  async function handleLogin(e) {
+    e.preventDefault();
+    setMessage("");
+    setLoading(true);
 
-  useEffect(() => {
-    axios.get('http://localhost:8000/api/car-parts')
-      .then(response => {
-        setCarParts(response.data);
-      })
-      .catch(error => {
-        setError('حدث خطأ في جلب البيانات');
-        console.error(error);
+    try {
+      const response = await fetch("http://localhost:8000/api/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, password }),
       });
-  }, []);
 
-  if (error) return <div>{error}</div>;
+      const data = await response.json();
+
+      if (response.ok) {
+        localStorage.setItem("api_token", data.token);
+        setMessage("تم تسجيل الدخول بنجاح");
+        navigate("/parts");  // التنقل لصفحة قائمة قطع الغيار
+      } else {
+        setMessage(data.error || "بيانات الدخول غير صحيحة");
+      }
+    } catch {
+      setMessage("حدث خطأ أثناء الاتصال بالخادم");
+    } finally {
+      setLoading(false);
+    }
+  }
 
   return (
-    <div>
-      <h2>قطع السيارات</h2>
-      <ul style={{ listStyle: 'none', padding: 0 }}>
-        {carParts.map(part => (
-          <li
-            key={part._id || part.id}
-            style={{
-              marginBottom: '20px',
-              borderBottom: '1px solid #ccc',
-              paddingBottom: '10px'
-            }}
-          >
-            <h3>{part.name}</h3>
+    <div className="login-container">
+      <div className="login-box">
+        <div className="logo">
+          <img src="/images/sclogo.png" alt="Logo" className="logo-image" />
+        </div>
 
-            {/* عرض الصورة مع fallback في حالة الخطأ */}
-            <img
-              src={part.image_url || defaultImage}
-              alt={part.name}
-              style={{
-                maxWidth: '200px',
-                height: 'auto',
-                display: 'block',
-                marginBottom: '10px'
-              }}
-              onError={(e) => {
-                e.target.onerror = null;
-                e.target.src = defaultImage;
-              }}
+        <form className="login-form" onSubmit={handleLogin}>
+          <div className="input-group">
+            <span className="icon"><FaUser /></span>
+            <input
+              type="text"
+              placeholder="الاسم"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
             />
+          </div>
 
-            <p>السعر: {part.price} شيكل</p>
-            {part.description && <p>الوصف: {part.description}</p>}
-          </li>
-        ))}
-      </ul>
+          <div className="input-group">
+            <span className="icon"><MdEmail /></span>
+            <input
+              type="email"
+              placeholder="البريد الإلكتروني"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
+
+          <div className="input-group">
+            <span className="icon"><FaLock /></span>
+            <input
+              type="password"
+              placeholder="كلمة السر"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+
+          <button type="submit" className="login-button" disabled={loading}>
+            {loading ? "جاري تسجيل الدخول..." : "تسجيل الدخول"}
+          </button>
+
+          {message && (
+            <p style={{ color: "red", marginTop: "1rem", textAlign: "center" }}>
+              {message}
+            </p>
+          )}
+        </form>
+      </div>
     </div>
   );
 }
-
-export default CarPartsList;
-
