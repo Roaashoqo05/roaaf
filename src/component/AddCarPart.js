@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 
 function AddCarPart() {
   const [formData, setFormData] = useState({
@@ -10,130 +11,99 @@ function AddCarPart() {
     car_model: '',
     year: '',
     stock: '',
-    image: null,
   });
 
+  const [images, setImages] = useState([]);
+  const [previewUrls, setPreviewUrls] = useState([]);
+
   const handleChange = (e) => {
-    if (e.target.name === 'image') {
-      setFormData({ ...formData, image: e.target.files[0] });
-    } else {
-      setFormData({ ...formData, [e.target.name]: e.target.value });
-    }
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleFileChange = (e) => {
+    const files = Array.from(e.target.files);
+    setImages(files);
+    setPreviewUrls(files.map(file => URL.createObjectURL(file)));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const data = new FormData();
-    data.append('name', formData.name);
-    data.append('price', formData.price);
-    data.append('description', formData.description);
-    data.append('category', formData.category);
-    data.append('brand', formData.brand);
-    data.append('car_model', formData.car_model);
-    data.append('year', formData.year);
-    data.append('stock', formData.stock);
-    if (formData.image) {
-      data.append('image', formData.image);
-    }
-
     try {
-      const response = await fetch('http://localhost:8000/api/car-parts', {
-        method: 'POST',
-        body: data,
+      let uploadedUrls = [];
+
+      // رفع الصور أولاً
+      if (images.length > 0) {
+        const imageForm = new FormData();
+        images.forEach(img => imageForm.append('images[]', img));
+
+        const imgRes = await axios.post('http://localhost:8000/api/car-parts/upload-images', imageForm, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            ...getAuthHeaders(),
+          },
+        });
+
+        uploadedUrls = imgRes.data.image_urls;
+      }
+
+      // إرسال بيانات القطعة
+      const carPartData = {
+        ...formData,
+        price: parseFloat(formData.price),
+        year: parseInt(formData.year),
+        stock: parseInt(formData.stock),
+        image_urls: uploadedUrls,
+      };
+
+      await axios.post('http://localhost:8000/api/car-parts', carPartData, {
+        headers: getAuthHeaders(),
       });
 
-      const result = await response.json();
+      alert('✅ تم إضافة القطعة بنجاح');
+      setFormData({
+        name: '',
+        price: '',
+        description: '',
+        category: '',
+        brand: '',
+        car_model: '',
+        year: '',
+        stock: '',
+      });
+      setImages([]);
+      setPreviewUrls([]);
 
-      if (response.ok) {
-        alert('تم إضافة القطعة بنجاح!');
-        setFormData({
-          name: '',
-          price: '',
-          description: '',
-          category: '',
-          brand: '',
-          car_model: '',
-          year: '',
-          stock: '',
-          image: null,
-        });
-      } else {
-        alert('خطأ: ' + (result.message || JSON.stringify(result)));
-      }
-    } catch (error) {
-      alert('حدث خطأ في الإتصال بالخادم.');
+    } catch (err) {
+      console.error(err);
+      alert('❌ حدث خطأ أثناء الإرسال');
     }
   };
 
+  const getAuthHeaders = () => {
+    const token = localStorage.getItem("api_token");
+    return token ? { Authorization: `Bearer ${token}` } : {};
+  };
+
   return (
-    <form onSubmit={handleSubmit} encType="multipart/form-data" style={{ maxWidth: '400px', margin: 'auto' }}>
-      <input
-        type="text"
-        name="name"
-        placeholder="اسم القطعة"
-        value={formData.name}
-        onChange={handleChange}
-        required
-      />
-      <input
-        type="number"
-        step="0.01"
-        name="price"
-        placeholder="السعر"
-        value={formData.price}
-        onChange={handleChange}
-        required
-      />
-      <input
-        type="text"
-        name="description"
-        placeholder="الوصف"
-        value={formData.description}
-        onChange={handleChange}
-      />
-      <input
-        type="text"
-        name="category"
-        placeholder="الفئة"
-        value={formData.category}
-        onChange={handleChange}
-      />
-      <input
-        type="text"
-        name="brand"
-        placeholder="الماركة"
-        value={formData.brand}
-        onChange={handleChange}
-      />
-      <input
-        type="text"
-        name="car_model"
-        placeholder="موديل السيارة"
-        value={formData.car_model}
-        onChange={handleChange}
-      />
-      <input
-        type="number"
-        name="year"
-        placeholder="سنة الصنع"
-        value={formData.year}
-        onChange={handleChange}
-      />
-      <input
-        type="number"
-        name="stock"
-        placeholder="المخزون"
-        value={formData.stock}
-        onChange={handleChange}
-      />
-      <input
-        type="file"
-        name="image"
-        accept="image/*"
-        onChange={handleChange}
-      />
-      <button type="submit">إضافة القطعة</button>
+    <form onSubmit={handleSubmit} style={{ maxWidth: '500px', margin: 'auto' }}>
+      <h2>إضافة قطعة سيارة</h2>
+
+      <input name="name" placeholder="اسم القطعة" value={formData.name} onChange={handleChange} required />
+      <input name="price" type="number" placeholder="السعر" value={formData.price} onChange={handleChange} required />
+      <input name="description" placeholder="الوصف" value={formData.description} onChange={handleChange} />
+      <input name="category" placeholder="الفئة" value={formData.category} onChange={handleChange} />
+      <input name="brand" placeholder="الماركة" value={formData.brand} onChange={handleChange} />
+      <input name="car_model" placeholder="موديل السيارة" value={formData.car_model} onChange={handleChange} />
+      <input name="year" type="number" placeholder="سنة الصنع" value={formData.year} onChange={handleChange} />
+      <input name="stock" type="number" placeholder="الكمية" value={formData.stock} onChange={handleChange} />
+
+      <input type="file" multiple accept="image/*" onChange={handleFileChange} />
+      {previewUrls.map((url, idx) => (
+        <img key={idx} src={url} alt={`preview-${idx}`} width="100" style={{ margin: '5px' }} />
+      ))}
+
+      <button type="submit">➕ إضافة القطعة</button>
     </form>
   );
 }
