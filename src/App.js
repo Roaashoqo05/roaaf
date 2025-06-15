@@ -9,19 +9,16 @@ import LoginPage from './component/Login';
 import Part from './component/Part';
 import Signup from './component/Signup';
 import Footer from './component/Footer';
-import CarPartsList from './component/CarPartsList'; // أو المسار الصحيح حسب مكان الملف
-import AddCarPart from './component/AddCarPart';     // استيراد الكمبوننت الجديد
 
 function App() {
   const [cartItems, setCartItems] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [products, setProducts] = useState([]);
 
-  // جلب المنتجات من API اللارافيل
   useEffect(() => {
-    axios.get("http://localhost:8000/api/car-parts") // عدّل الرابط حسب بيئة مشروعك
+    axios.get("http://localhost:8000/api/car-parts")
       .then((response) => {
-        setProducts(response.data); // البيانات اللي تجي من باكند
+        setProducts(response.data);
       })
       .catch((error) => {
         console.error("خطأ في جلب المنتجات:", error);
@@ -30,7 +27,6 @@ function App() {
 
   const handleAddToCart = (product) => {
     const existingItem = cartItems.find((item) => item.id === product.id);
-
     if (existingItem) {
       setCartItems((prevItems) =>
         prevItems.map((item) =>
@@ -48,8 +44,7 @@ function App() {
   };
 
   const handleRemoveFromCart = (idToRemove) => {
-    const newCart = cartItems.filter((item) => item.id !== idToRemove);
-    setCartItems(newCart);
+    setCartItems(cartItems.filter((item) => item.id !== idToRemove));
   };
 
   return (
@@ -67,7 +62,27 @@ function App() {
               path="/"
               element={
                 <HomePage
-                  products={products}            // مرّر المنتجات هنا
+                  products={products}
+                  onAddToCart={handleAddToCart}
+                  searchTerm={searchTerm}
+                />
+              }
+            />
+            <Route
+              path="/parts"
+              element={
+                <HomePage
+                  products={products}
+                  onAddToCart={handleAddToCart}
+                  searchTerm={searchTerm}
+                />
+              }
+            />
+            <Route
+              path="/car-parts"
+              element={
+                <HomePage
+                  products={products}
                   onAddToCart={handleAddToCart}
                   searchTerm={searchTerm}
                 />
@@ -85,8 +100,6 @@ function App() {
             <Route path="/login" element={<LoginPage />} />
             <Route path="/part" element={<Part />} />
             <Route path="/signup" element={<Signup />} />
-            <Route path="/parts" element={<CarPartsList />} />
-            <Route path="/add-part" element={<AddCarPart />} /> {/* Route جديد */}
           </Routes>
         </div>
 
