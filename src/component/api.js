@@ -8,9 +8,10 @@ function getAuthHeaders() {
 }
 
 export async function getAllCarParts() {
-  const response = await axios.get(`${BASE_URL}/car-parts`);
+  const response = await axios.get('http://localhost:8000/api/car-parts');
   return response.data;
 }
+
 
 
 export async function searchProducts(query) {
