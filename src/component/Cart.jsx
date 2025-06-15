@@ -38,7 +38,7 @@ const Cart = ({ cartItems, onRemoveFromCart }) => {
 
       if (data.success) {
         alert('تم إنشاء الفاتورة بنجاح!');
-        navigate(`/invoices/${data.invoice_id}`);
+        navigate('/car-parts');  // هنا عدلت لإعادة التوجيه لصفحة المنتجات
       } else {
         alert('فشل في إنشاء الفاتورة: ' + (data.message || ''));
       }
