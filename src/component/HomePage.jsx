@@ -19,7 +19,6 @@ const HomePage = ({ onAddToCart, searchTerm = '' }) => {
           setError(null);
 
           const token = localStorage.getItem('token');
-
           const url =
             searchTerm.trim() !== ''
               ? `http://localhost:8000/api/car-parts/search?term=${searchTerm}`
@@ -50,6 +49,10 @@ const HomePage = ({ onAddToCart, searchTerm = '' }) => {
     const productWithId = {
       ...product,
       id: product.id || product._id,
+      image: product.image_urls && product.image_urls.length > 0
+        ? product.image_urls[0]
+        : defaultImage,
+      quantity: 1,
     };
     onAddToCart(productWithId);
   };
@@ -85,7 +88,7 @@ const HomePage = ({ onAddToCart, searchTerm = '' }) => {
                   ))
                 ) : (
                   <img
-                    src={product.image || defaultImage}
+                    src={defaultImage}
                     alt={product.name}
                     className="product-img"
                   />

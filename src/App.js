@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
@@ -13,17 +13,6 @@ import Footer from './component/Footer';
 function App() {
   const [cartItems, setCartItems] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
-  const [products, setProducts] = useState([]);
-
-  useEffect(() => {
-    axios.get("http://localhost:8000/api/car-parts")
-      .then((response) => {
-        setProducts(response.data);
-      })
-      .catch((error) => {
-        console.error("خطأ في جلب المنتجات:", error);
-      });
-  }, []);
 
   const handleAddToCart = (product) => {
     const existingItem = cartItems.find((item) => item.id === product.id);
@@ -62,7 +51,6 @@ function App() {
               path="/"
               element={
                 <HomePage
-                  products={products}
                   onAddToCart={handleAddToCart}
                   searchTerm={searchTerm}
                 />
@@ -72,7 +60,6 @@ function App() {
               path="/parts"
               element={
                 <HomePage
-                  products={products}
                   onAddToCart={handleAddToCart}
                   searchTerm={searchTerm}
                 />
@@ -82,7 +69,6 @@ function App() {
               path="/car-parts"
               element={
                 <HomePage
-                  products={products}
                   onAddToCart={handleAddToCart}
                   searchTerm={searchTerm}
                 />
