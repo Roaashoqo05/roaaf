@@ -6,7 +6,7 @@ const Cart = ({ cartItems, onRemoveFromCart }) => {
   const navigate = useNavigate();
 
   const totalPrice = cartItems.reduce(
-    (acc, item) => acc + (Number(item.price) * item.quantity),
+    (acc, item) => acc + Number(item.price) * item.quantity,
     0
   );
 
@@ -19,26 +19,26 @@ const Cart = ({ cartItems, onRemoveFromCart }) => {
         },
         items: cartItems.map(item => ({
           part_id: item.id,
-          quantity: item.quantity
+          quantity: item.quantity,
         })),
         tax: 0,
-        discount: 0
+        discount: 0,
       };
 
       const response = await fetch('http://127.0.0.1:8000/api/invoices', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('token')}`
+          'Authorization': `Bearer ${localStorage.getItem('token')}`,
         },
-        body: JSON.stringify(invoiceData)
+        body: JSON.stringify(invoiceData),
       });
 
       const data = await response.json();
 
       if (data.success) {
         alert('تم إنشاء الفاتورة بنجاح!');
-        navigate('/car-parts');  // هنا عدلت لإعادة التوجيه لصفحة المنتجات
+        navigate('/car-parts'); // إعادة توجيه لصفحة عرض المنتجات
       } else {
         alert('فشل في إنشاء الفاتورة: ' + (data.message || ''));
       }
@@ -59,7 +59,7 @@ const Cart = ({ cartItems, onRemoveFromCart }) => {
       ) : (
         <>
           <div className="cart-items">
-            {cartItems.map((item) => (
+            {cartItems.map(item => (
               <div className="cart-item" key={item.id}>
                 <img src={item.image} alt={item.name} className="item-image" />
                 <div className="item-details">
@@ -74,9 +74,7 @@ const Cart = ({ cartItems, onRemoveFromCart }) => {
 
           <div className="cart-summary">
             <h2>السعر الكلي: {totalPrice} شيكل</h2>
-            <button className="checkout-btn" onClick={handleCheckout}>
-              إتمام الشراء
-            </button>
+            <button className="checkout-btn" onClick={handleCheckout}>إتمام الشراء</button>
           </div>
         </>
       )}
