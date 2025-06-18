@@ -13,6 +13,7 @@ import Footer from './component/Footer';
 function App() {
   const [cartItems, setCartItems] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
+  const [lastInvoice, setLastInvoice] = useState(null); // ✅ لإمكانية مشاركة الفاتورة
 
   const handleAddToCart = (product) => {
     const existingItem = cartItems.find((item) => item.id === product.id);
@@ -80,6 +81,7 @@ function App() {
                 <Cart
                   cartItems={cartItems}
                   onRemoveFromCart={handleRemoveFromCart}
+                  setLastInvoice={setLastInvoice} // ✅ تمرير دالة تخزين الفاتورة
                 />
               }
             />
